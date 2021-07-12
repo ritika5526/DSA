@@ -10,7 +10,7 @@ public class Circular_linkedlist {
     }
 
    
-    public static Circular_linkedlist insert(Circular_linkedlist list,int value){
+    public static Circular_linkedlist insert_atFirst(Circular_linkedlist list,int value){
        Node new_node = new Node(value);
        new_node.next = list.head;
        if(list.head!=null){
@@ -26,6 +26,24 @@ public class Circular_linkedlist {
        list.head = new_node;
         return list;
     }
+
+    public static Circular_linkedlist insert_atLast(Circular_linkedlist list,int value){
+        Node new_node = new Node(value);
+        new_node.next = list.head;
+
+             if(list.head!=null){
+                Node trav = list.head;
+                while(trav.next!=list.head){
+                    trav = trav.next;
+                }
+                trav.next = new_node;
+           }
+           else{
+               new_node.next = new_node;
+               list.head = new_node;
+           }  
+         return list;
+     }
 
     public static Circular_linkedlist delete(Circular_linkedlist list,int value){
         Node present_node = list.head;
@@ -87,24 +105,29 @@ public class Circular_linkedlist {
         Scanner sc = new Scanner(System.in);
         Circular_linkedlist list = new Circular_linkedlist();
         while(true){
-            System.out.println("\n1.Insert  \n2.Delete \n3.Display \n4.Exit");
+            System.out.println("\n1.Insert_atFirst   \n2.Insert_atLast  \n3.Delete \n4.Display \n5.Exit");
             System.out.println("Enter your choice");
             int x = sc.nextInt();
             switch(x){
                 case 1:System.out.println("Enter the element you wish to insert");
                 int value = sc.nextInt();
-                insert(list, value);
+                insert_atFirst(list, value);
                 break;
 
-                case 2:System.out.println("Enter the element you wish to delete");
+                case 2: System.out.println("Enter the element you wish to insert");
+                int value1 = sc.nextInt();
+                insert_atLast(list, value1);
+                break;
+
+                case 3:System.out.println("Enter the element you wish to delete");
                 int val = sc.nextInt();
                 delete(list, val);
                 break;
 
-                case 3:display(list);
+                case 4:display(list);
                 break;
 
-                case 4:System.exit(0);
+                case 5:System.exit(0);
                 return;
 
             }
