@@ -1,6 +1,7 @@
 import java.util.*;
  class Doubly_linkedlist {
      Node head;
+     
      static class Node{
          Node prev;
          Node next;
@@ -95,7 +96,55 @@ import java.util.*;
         return list;
     }
 
-    public static Doubly_linkedlist delete(Doubly_linkedlist list,int value){
+    public static Doubly_linkedlist delete(Doubly_linkedlist list){
+        Node present_node = list.head;
+        Node prev1 = null;
+        
+
+        if(list.head == null){
+            System.out.println("List empty..Can't delete!");
+            return list;
+        }
+        else{
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the node value");
+            int value = sc.nextInt();
+
+            // to locate to the specific element
+            while(present_node.data!=value){
+            if(present_node.next == null){
+                System.out.println("Element not Found");
+                break;
+            }
+            prev1 = present_node;
+            present_node = present_node.next;
+        }
+
+        //if only one node is present being as the element too.
+        if(present_node == list.head && present_node.next == null){
+            list.head = null;
+            return list;
+        }
+
+         //if more than one node is present and check if it is the first element to be deleted
+         if(present_node == list.head){
+            present_node = present_node.next;
+            list.head = present_node;
+            present_node.prev = null;
+        }
+
+         //if it's the last node
+         else if(present_node.next == null)
+         prev1.next = null;
+
+         else{
+            prev1.next = present_node.next;
+            present_node.next.prev = prev1;
+         }
+        
+        }
+
+        
         return list;
     }
 
@@ -147,12 +196,16 @@ import java.util.*;
                 break;
 
                 case 4:
+                delete(list);
                 break;
 
                 case 5:display(list);
                 break;
 
                 case 6:System.exit(0);
+                return;
+
+                default: System.out.println("Invalid Choice");
                 return;
 
             }
